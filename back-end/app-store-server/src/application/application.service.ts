@@ -12,4 +12,16 @@ export class ApplicationService {
         @InjectRepository(ApplicationDesEntity)
         private readonly applicationDesRepo: Repository<ApplicationDesEntity>,
     ) {}
+
+    async getAllApplications(): Promise<ApplicationEntity> {
+        return null;
+    }
+
+    async getApplicationById(id: number): Promise<ApplicationEntity[]> {
+        return await this.applicationRepo.find({ id });
+    }
+
+    async getApplicationDesById(id: number): Promise<ApplicationDesEntity[]> {
+        return await this.applicationDesRepo.find({ id });
+    }
 }

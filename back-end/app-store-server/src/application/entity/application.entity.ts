@@ -1,35 +1,41 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'applications' })
 export class ApplicationEntity {
-  @Column()
+  @PrimaryGeneratedColumn()
+  i: number;
+  @Column({nullable:true})
+  FIELD1: string;
+  @Column({nullable:true})
   id: number;
-  @Column()
+  @Column({nullable:true})
   track_name: string;
-  @Column()
+  @Column({nullable:true})
   size_bytes: string;
-  @Column()
+  @Column({nullable:true})
   currency: string;
-  @Column()
+  @Column({nullable:true})
   price: string;
-  @Column()
+  @Column({nullable:true})
   rating_count_tot: string;
-  @Column()
+  @Column({nullable:true})
   rating_count_ver: string;
-  @Column()
+  @Column({nullable:true})
   user_rating: string;
-  @Column()
+  @Column({nullable:true})
+  user_rating_var: string;
+  @Column({nullable:true})
   ver: string;
-  @Column()
+  @Column({nullable:true})
   cont_rating: string;
-  @Column()
+  @Column({nullable:true})
   prime_genre: string;
-  @Column()
-  sup_devicesnum: number;
-  @Column()
-  ipadSc_urlsnum: number;
-  @Column()
-  langnum: number;
-  @Column()
-  vpp_lic: number;
+  @Column({nullable:true})
+  sup_devicesnum: string;
+  @Column({nullable:true})
+  ipadSc_urlsnum: string;
+  @Column({nullable:true})
+  langnum: string;
+  @Column({nullable:true})
+  vpp_lic: string;
 }

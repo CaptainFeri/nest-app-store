@@ -13,42 +13,67 @@ export class ApplicationService {
     private readonly applicationDesRepo: Repository<ApplicationDesEntity>,
   ) {
     // Once open this comments and after that close that again
+    // this.fillApplicationData(
+    //   'src/application/res/apple.store.json',
+    //   (err, apps: object[]) => {
+    //     if (err) {
+    //       console.log(err);
+    //       return;
+    //     }
+    //     apps.forEach((app) => {
+    //       this.applicationRepo.insert(app).then(console.log);
+    //     });
+    //   },
+    // );
 
-    // this.fillApplicationData('src/application/res/apple.store.json',(err,apps: object[]) => {
-    //   if(err) {
-    //     console.log(err);
-    //     return;
-    //   }
-    //   apps.forEach((app) => {
-    //     this.applicationRepo.insert(app);
-    //     console.log(`app inserted: ${app}`);
-    //   })
-    // })
-
-    // this.fillApplicationData('src/application/res/apple.store.des.json',(err,apps: object[]) => {
-    //   if(err) {
-    //     console.log(err);
-    //     return;
-    //   }
-    //   apps.forEach((app) => {
-    //     this.applicationDesRepo.insert(app);
-    //     console.log(`app inserted: ${app}`);
-    //   })
-    // })
+    // this.fillApplicationData(
+    //   'src/application/res/apple.storedes.json',
+    //   (err, apps: object[]) => {
+    //     if (err) {
+    //       console.log(err);
+    //       return;
+    //     }
+    //     apps.forEach((app) => {
+    //       this.applicationDesRepo.insert(app).then(console.log);
+    //     });
+    //   },
+    // );
   }
 
-  private async fillApplicationData(filePath : string,cb) {
-    fs.readFile(filePath, (err,fileData) => {
-      if(err) {
+  // just fill data base from json file (PRIVATE METHOD)
+  private async fillApplicationData(filePath: string, cb) {
+    fs.readFile(filePath, (err, fileData) => {
+      if (err) {
         return cb && cb(err);
       }
       try {
-        const application = JSON.parse(fileData.toString())
-        return cb && cb(null,application);
-      } catch(err) {
+        const application = JSON.parse(fileData.toString());
+        return cb && cb(null, application);
+      } catch (err) {
         return cb && cb(err);
       }
-    })
+    });
+  }
+
+  // view spesific app info by app_id
+  async viewAppInfo(id: number): Promise<ApplicationDesEntity> {
+    const app = await this.applicationDesRepo.findOne({ id });
+    if (app) {
+      return app;
+    }
+    return null;
+  }
+
+  // get all categories
+  async getAllCategories() {
+    await this.applicationRepo
+      .query('SELECT DISTINCT prime_genre FROM public.applications;')
+      .then((val) => console.log(val));
+  }
+
+  // find spesific apps by prime_genre value
+  async findAppByCategory(prime_genre: string): Promise<ApplicationEntity[]> {
+    return await this.applicationRepo.find({ where: { prime_genre } });
   }
 
   async getAllApplications(): Promise<ApplicationEntity[]> {

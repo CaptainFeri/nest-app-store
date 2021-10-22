@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'app-des' })
 export class ApplicationDesEntity {
@@ -7,9 +7,17 @@ export class ApplicationDesEntity {
   @PrimaryGeneratedColumn()
   app_id: number;
   @Column()
-  track_name: string;
-  @Column()
-  size_bytes: string;
-  @Column()
   app_desc: string;
+  @CreateDateColumn({
+    type: 'time with time zone'
+  })
+  createddate: string;
+  @UpdateDateColumn({
+    type: 'time with time zone'
+  })
+  updateddate: string;
+  @DeleteDateColumn({
+    type: 'time with time zone'
+  })
+  deleteddate: string;
 }

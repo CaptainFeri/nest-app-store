@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Timestamp } from 'rxjs';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity({ name: 'applications' })
 export class ApplicationEntity {
@@ -19,23 +20,25 @@ export class ApplicationEntity {
   @Column({nullable:true})
   rating_count_tot: string;
   @Column({nullable:true})
-  rating_count_ver: string;
-  @Column({nullable:true})
-  user_rating: string;
-  @Column({nullable:true})
-  user_rating_var: string;
-  @Column({nullable:true})
   ver: string;
   @Column({nullable:true})
   cont_rating: string;
   @Column({nullable:true})
   prime_genre: string;
   @Column({nullable:true})
-  sup_devicesnum: string;
-  @Column({nullable:true})
-  ipadSc_urlsnum: string;
-  @Column({nullable:true})
   langnum: string;
   @Column({nullable:true})
   vpp_lic: string;
+  @CreateDateColumn({
+    type: 'time with time zone'
+  })
+  createddate: string;
+  @UpdateDateColumn({
+    type: 'time with time zone'
+  })
+  updateddate: string;
+  @DeleteDateColumn({
+    type: 'time with time zone'
+  })
+  deleteddate: string;
 }

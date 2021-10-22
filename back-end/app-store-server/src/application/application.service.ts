@@ -14,27 +14,27 @@ export class ApplicationService {
   ) {
     // Once open this comments and after that close that again
 
-    // this.fillApplicationData('src/application/res/apple.store.json',(err,apps: object[]) => {
-    //   if(err) {
-    //     console.log(err);
-    //     return;
-    //   }
-    //   apps.forEach((app) => {
-    //     this.applicationRepo.insert(app);
-    //     console.log(`app inserted: ${app}`);
-    //   })
-    // })
+    this.fillApplicationData('src/application/res/apple.store.json',(err,apps: object[]) => {
+      if(err) {
+        console.log(err);
+        return;
+      }
+      apps.forEach((app) => {
+        this.applicationRepo.insert(app);
+        console.log(`app inserted: ${app}`);
+      })
+    })
 
-    // this.fillApplicationData('src/application/res/apple.store.description.json',(err,apps: object[]) => {
-    //   if(err) {
-    //     console.log(err);
-    //     return;
-    //   }
-    //   apps.forEach((app) => {
-    //     this.applicationDesRepo.insert(app);
-    //     console.log(`app inserted: ${app}`);
-    //   })
-    // })
+    this.fillApplicationData('src/application/res/apple.store.des.json',(err,apps: object[]) => {
+      if(err) {
+        console.log(err);
+        return;
+      }
+      apps.forEach((app) => {
+        this.applicationDesRepo.insert(app);
+        console.log(`app inserted: ${app}`);
+      })
+    })
   }
 
   private async fillApplicationData(filePath : string,cb) {

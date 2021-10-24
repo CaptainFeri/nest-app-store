@@ -72,6 +72,156 @@ class Welcome extends StatelessWidget {
                   ),
                 ],
               ),
+              body: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (content, index) => GestureDetector(
+                  onTap: () {},
+                  child: Card(
+                    elevation: 6,
+                    color: Colors.amber,
+                    margin: const EdgeInsets.all(3),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Column(
+                          //   children: [
+                          //     Padding(
+                          //       padding:
+                          //       const EdgeInsets.symmetric(
+                          //           horizontal: 5),
+                          //       child: const Icon(
+                          //         Icons.alarm,
+                          //         size: 28,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // Column(
+                          //   crossAxisAlignment:
+                          //   CrossAxisAlignment.start,
+                          //   children: [
+                          //     Row(
+                          //       children: [
+                          //         Text(
+                          //           "به من",
+                          //           style: const TextStyle(
+                          //               fontFamily: 'IranSans'),
+                          //         ),
+                          //         SizedBox(width: 5),
+                          //         Text(
+                          //             alarmContent['others']
+                          //             [index]
+                          //             ['distance']
+                          //                 .toString() +
+                          //                 " کیلومتری",
+                          //             style: const TextStyle(
+                          //                 fontFamily:
+                          //                 'IranSans')),
+                          //       ],
+                          //     ),
+                          //     SizedBox(height: 10),
+                          //     Row(
+                          //       children: [
+                          //         Directionality(
+                          //           textDirection:
+                          //           TextDirection.rtl,
+                          //           child: Text(
+                          //             alarmContent['others'][
+                          //             index]
+                          //             ['status']
+                          //                 .toString() ==
+                          //                 "1"
+                          //                 ? "به مقصد رسیده"
+                          //                 : "به مقصد نرسیده",
+                          //             style: TextStyle(
+                          //                 fontFamily:
+                          //                 'IranSans',
+                          //                 color: alarmContent['others']
+                          //                 [
+                          //                 index]
+                          //                 [
+                          //                 'status']
+                          //                     .toString() ==
+                          //                     "1"
+                          //                     ? Colors.teal
+                          //                     : Colors.red),
+                          //             textAlign:
+                          //             TextAlign.start,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     SizedBox(height: 10),
+                          //     Row(
+                          //       children: [
+                          //         Directionality(
+                          //           textDirection:
+                          //           TextDirection.ltr,
+                          //           child: Text(
+                          //             Utils.calcTime(
+                          //                 alarmContent['others']
+                          //                 [index]
+                          //                 ['updated_at']),
+                          //             style: const TextStyle(
+                          //                 fontFamily:
+                          //                 'IranSans'),
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     )
+                          //   ],
+                          // ),
+                          // Row(
+                          //   crossAxisAlignment:
+                          //   CrossAxisAlignment.end,
+                          //   children: [
+                          //     Container(
+                          //       width: w,
+                          //       child: Text(
+                          //         alarmContent['others'][index]
+                          //         ['city_name'],
+                          //         overflow: TextOverflow.clip,
+                          //         style: const TextStyle(
+                          //             fontFamily: 'IranSans',
+                          //             color: Colors.deepPurple),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // Column(
+                          //   children: [
+                          //     Switch(
+                          //       value: alarmContent['others']
+                          //       [index]
+                          //       ['active']
+                          //           .toString() ==
+                          //           'false'
+                          //           ? false
+                          //           : (alarmContent['others']
+                          //       [index]
+                          //       ['active']
+                          //           .toString() ==
+                          //           '0'
+                          //           ? false
+                          //           : true),
+                          //       onChanged: (val) async =>
+                          //       await onChangedSwitch(
+                          //           alarmContent['others']
+                          //           [index],
+                          //           val),
+                          //     ),
+                          //   ],
+                          // )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
           );
         },

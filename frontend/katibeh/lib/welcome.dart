@@ -20,7 +20,15 @@ class Welcome extends StatelessWidget {
             themeMode: model.mode,
             home: Scaffold(
               appBar: AppBar(
-                title: Text('Katibeh'),
+                title: Text(
+                  'کتیبه',
+                  style: TextStyle(
+                    fontFamily: 'IranSans',
+                    fontSize: 20,
+
+                  ),
+                  textDirection: TextDirection.rtl,
+                ),
                 actions: [
                   Padding(
                     padding: const EdgeInsets.only(right: 20),

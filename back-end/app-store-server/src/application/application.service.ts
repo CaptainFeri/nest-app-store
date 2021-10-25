@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { ApplicationEntity } from './entity/application.entity';
 import { ApplicationDesEntity } from './entity/applicationDes.entity';
 import * as fs from 'fs';
+import { runInThisContext } from 'vm';
 @Injectable()
 export class ApplicationService {
   constructor(
@@ -25,7 +26,6 @@ export class ApplicationService {
     //     });
     //   },
     // );
-
     // this.fillApplicationData(
     //   'src/application/res/apple.storedes.json',
     //   (err, apps: object[]) => {
@@ -86,5 +86,35 @@ export class ApplicationService {
 
   async getApplicationDesById(id: number): Promise<ApplicationDesEntity[]> {
     return await this.applicationDesRepo.find({ id });
+  }
+
+  async getTopFreeApps(): Promise<ApplicationEntity[]> {
+    const apps = await this.applicationRepo.find({
+      where: {
+        price: 0,
+      },
+    });
+    if (apps.length > 0) {
+      const sort_apps = apps.sort((a, b) =>
+        a.rating_count_tot > b.rating_count_tot
+          ? 1
+          : b.rating_count_tot > a.rating_count_tot
+          ? -1
+          : 0,
+      );
+      return sort_apps;
+    }
+  }
+
+  async getPopularApps(): Promise<ApplicationEntity[]> {
+    const apps = await this.applicationRepo.find();
+    const sort_apps = apps.sort((a, b) =>
+      a.rating_count_tot > b.rating_count_tot
+        ? 1
+        : b.rating_count_tot > a.rating_count_tot
+        ? -1
+        : 0,
+    );
+    return sort_apps;
   }
 }

@@ -38,5 +38,16 @@ export class ApplicationController {
     return buildResponseModel(HttpStatus.OK, `all categories`, categories);
   }
 
-  
+  @Get('/category/:cat')
+  async getAppsOfCategory(@Param('cat') cat: string): Promise<responseModel> {
+    const apps = await this.applicationService.findAppByCategory(cat);
+    if (apps) {
+      return buildResponseModel(HttpStatus.OK, `app by ${cat} category`, apps);
+    }
+    return buildResponseModel(
+      HttpStatus.NOT_ACCEPTABLE,
+      `${cat} category NOt Found`,
+      cat,
+    );
+  }
 }

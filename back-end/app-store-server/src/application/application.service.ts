@@ -4,7 +4,6 @@ import { Like, Repository } from 'typeorm';
 import { ApplicationEntity } from './entity/application.entity';
 import { ApplicationDesEntity } from './entity/applicationDes.entity';
 import * as fs from 'fs';
-import { runInThisContext } from 'vm';
 @Injectable()
 export class ApplicationService {
   constructor(
@@ -123,9 +122,8 @@ export class ApplicationService {
     return sort_apps;
   }
 
-
   //search apps
-  async searchApp(search: string): Promise<ApplicationEntity[]> {
+  async searchApps(search: string): Promise<ApplicationEntity[]> {
     const apps = await this.applicationRepo.find({
       where: {
         track_name: Like('%' + search + '%'),

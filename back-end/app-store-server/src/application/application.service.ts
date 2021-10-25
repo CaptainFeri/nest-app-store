@@ -56,9 +56,13 @@ export class ApplicationService {
 
   // get all categories
   async getAllCategories() {
+    // const categories = await this.applicationRepo.createQueryBuilder('ApplicationEntity').select(['prime_genre']).distinct(true).getMany();
+    // return categories;
+    const cats = [];
     await this.applicationRepo
       .query('SELECT DISTINCT prime_genre FROM public.applications;')
-      .then((val) => console.log(val));
+      .then((val) => cats.push(val));
+    return cats;
   }
 
   // find spesific apps by prime_genre value
@@ -72,13 +76,13 @@ export class ApplicationService {
   }
 
   //get application by id
-  async getApplicationById(id: number): Promise<ApplicationEntity[]> {
-    return await this.applicationRepo.find({ id });
+  async getApplicationById(id: number): Promise<ApplicationEntity> {
+    return await this.applicationRepo.findOne({ i: id });
   }
 
   //get application details by id
   async getApplicationDesById(id: number): Promise<ApplicationDesEntity[]> {
-    return await this.applicationDesRepo.find({ id });
+    return await this.applicationDesRepo.find({ app_id: id });
   }
 
   // get top / free apps

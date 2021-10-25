@@ -4,8 +4,14 @@ import { ApplicationService } from './application.service';
 
 @Controller('application')
 export class ApplicationController {
-  constructor(private readonly applicationService: ApplicationService) {}
+  constructor(private applicationService: ApplicationService) {}
 
+  @Get('/categories')
+  async getCategories(): Promise<responseModel> {
+    const categories = await this.applicationService.getAllCategories();
+    return buildResponseModel(HttpStatus.OK, `all categories`, categories);
+  }
+  
   @Get('/info/:id')
   async getAppInfo(@Param('id') id: number): Promise<responseModel> {
     const app = await this.applicationService.getApplicationDesById(id);
@@ -30,12 +36,6 @@ export class ApplicationController {
       `app by ${id} not found`,
       id,
     );
-  }
-
-  @Get('/categories')
-  async getCategories(): Promise<responseModel> {
-    const categories = await this.applicationService.getAllCategories();
-    return buildResponseModel(HttpStatus.OK, `all categories`, categories);
   }
 
   @Get('/category/:cat')

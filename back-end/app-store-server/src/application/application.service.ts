@@ -54,15 +54,6 @@ export class ApplicationService {
     });
   }
 
-  // view spesific app info by app_id
-  async viewAppInfo(id: number): Promise<ApplicationDesEntity> {
-    const app = await this.applicationDesRepo.findOne({ id });
-    if (app) {
-      return app;
-    }
-    return null;
-  }
-
   // get all categories
   async getAllCategories() {
     await this.applicationRepo

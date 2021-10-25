@@ -18,4 +18,20 @@ export class ApplicationController {
       id,
     );
   }
+
+  @Get('/:id')
+  async getApp(@Param('id') id: number): Promise<responseModel> {
+    const app = await this.applicationService.getApplicationById(id);
+    if (app) {
+      return buildResponseModel(HttpStatus.OK, `app by ${id}`, app);
+    }
+    return buildResponseModel(
+      HttpStatus.NOT_ACCEPTABLE,
+      `app by ${id} not found`,
+      id,
+    );
+  }
+
+  
+
 }

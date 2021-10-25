@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { ApplicationEntity } from './entity/application.entity';
 import { ApplicationDesEntity } from './entity/applicationDes.entity';
 import * as fs from 'fs';
@@ -76,18 +76,22 @@ export class ApplicationService {
     return await this.applicationRepo.find({ where: { prime_genre } });
   }
 
+  // get all applications
   async getAllApplications(): Promise<ApplicationEntity[]> {
     return await this.applicationRepo.find();
   }
 
+  //get application by id
   async getApplicationById(id: number): Promise<ApplicationEntity[]> {
     return await this.applicationRepo.find({ id });
   }
 
+  //get application details by id
   async getApplicationDesById(id: number): Promise<ApplicationDesEntity[]> {
     return await this.applicationDesRepo.find({ id });
   }
 
+  // get top / free apps
   async getTopFreeApps(): Promise<ApplicationEntity[]> {
     const apps = await this.applicationRepo.find({
       where: {
@@ -106,6 +110,7 @@ export class ApplicationService {
     }
   }
 
+  //get top apps
   async getPopularApps(): Promise<ApplicationEntity[]> {
     const apps = await this.applicationRepo.find();
     const sort_apps = apps.sort((a, b) =>
@@ -116,5 +121,16 @@ export class ApplicationService {
         : 0,
     );
     return sort_apps;
+  }
+
+
+  //search apps
+  async searchApp(search: string): Promise<ApplicationEntity[]> {
+    const apps = await this.applicationRepo.find({
+      where: {
+        track_name: Like('%' + search + '%'),
+      },
+    });
+    return apps;
   }
 }

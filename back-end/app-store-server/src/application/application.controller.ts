@@ -32,6 +32,11 @@ export class ApplicationController {
     );
   }
 
-  
+  @Get('/categories')
+  async getCategories(): Promise<responseModel> {
+    const categories = await this.applicationService.getAllCategories();
+    return buildResponseModel(HttpStatus.OK, `all categories`, categories);
+  }
 
+  
 }

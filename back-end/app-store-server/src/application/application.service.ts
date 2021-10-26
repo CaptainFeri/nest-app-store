@@ -4,6 +4,7 @@ import { Like, Repository } from 'typeorm';
 import { ApplicationEntity } from './entity/application.entity';
 import { ApplicationDesEntity } from './entity/applicationDes.entity';
 import * as fs from 'fs';
+import { groupBy } from 'rxjs/internal/operators/groupBy';
 @Injectable()
 export class ApplicationService {
   constructor(
@@ -92,29 +93,20 @@ export class ApplicationService {
         price: 0,
       },
     });
-    if (apps.length > 0) {
-      const sort_apps = apps.sort((a, b) =>
-        a.rating_count_tot > b.rating_count_tot
-          ? 1
-          : b.rating_count_tot > a.rating_count_tot
-          ? -1
-          : 0,
-      );
-      return sort_apps;
-    }
+
+    apps.sort(
+      (a, b) => parseInt(b.rating_count_tot) - parseInt(a.rating_count_tot),
+    );
+    return apps;
   }
 
   //get top apps
   async getPopularApps(): Promise<ApplicationEntity[]> {
     const apps = await this.applicationRepo.find();
-    const sort_apps = apps.sort((a, b) =>
-      a.rating_count_tot > b.rating_count_tot
-        ? 1
-        : b.rating_count_tot > a.rating_count_tot
-        ? -1
-        : 0,
+    apps.sort(
+      (a, b) => parseInt(b.rating_count_tot) - parseInt(a.rating_count_tot),
     );
-    return sort_apps;
+    return apps;
   }
 
   //search apps

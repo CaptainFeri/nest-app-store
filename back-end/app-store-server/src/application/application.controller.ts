@@ -1,5 +1,5 @@
 import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
-import responseModel, { buildResponseModel } from 'src/common/responseModel';
+import responseModel, { buildResponseModel } from '../common/responseModel';
 import { ApplicationService } from './application.service';
 
 @Controller('application')
@@ -9,23 +9,13 @@ export class ApplicationController {
   @Get('/top')
   async getTopApps(): Promise<responseModel> {
     const apps = await this.applicationService.getPopularApps();
-    const resp = new responseModel();
-    resp.data = apps;
-    resp.message.push('top free apps');
-    resp.statusCode = HttpStatus.OK;
-    resp.error = null;
-    return resp;
+    return buildResponseModel(HttpStatus.OK, 'top apps', apps);
   }
 
   @Get('/top/free')
   async getTopFreeApps(): Promise<responseModel> {
     const apps = await this.applicationService.getTopFreeApps();
-    const resp = new responseModel();
-    resp.data = apps;
-    resp.message.push('top free apps');
-    resp.statusCode = HttpStatus.OK;
-    resp.error = null;
-    return resp;
+    return buildResponseModel(HttpStatus.OK, 'top free apps', apps);
   }
 
   @Get('/categories')
@@ -33,18 +23,16 @@ export class ApplicationController {
     const categories = await this.applicationService.getAllCategories();
     return buildResponseModel(HttpStatus.OK, `all categories`, categories);
   }
-  
+
   @Get('/search/:text')
   async searchApps(@Param('text') text: string): Promise<responseModel> {
     const apps = await this.applicationService.searchApps(text);
-    const resp = new responseModel();
-    resp.data = apps;
-    resp.message.push(`resault for ${text} search`);
-    resp.statusCode = HttpStatus.OK;
-    resp.error = null;
-    return resp;
+    return buildResponseModel(
+      HttpStatus.OK,
+      `resault for ${text} search`,
+      apps,
+    );
   }
-
 
   @Get('/info/:id')
   async getAppInfo(@Param('id') id: number): Promise<responseModel> {

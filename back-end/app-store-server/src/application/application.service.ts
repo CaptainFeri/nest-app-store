@@ -4,7 +4,6 @@ import { Like, Repository } from 'typeorm';
 import { ApplicationEntity } from './entity/application.entity';
 import { ApplicationDesEntity } from './entity/applicationDes.entity';
 import * as fs from 'fs';
-import { groupBy } from 'rxjs/internal/operators/groupBy';
 @Injectable()
 export class ApplicationService {
   constructor(

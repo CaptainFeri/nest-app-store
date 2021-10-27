@@ -1,5 +1,5 @@
 import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
-import responseModel, { buildResponseModel } from 'src/common/responseModel';
+import responseModel, { buildResponseModel } from '../common/responseModel';
 import { ApplicationService } from './application.service';
 
 @Controller('application')

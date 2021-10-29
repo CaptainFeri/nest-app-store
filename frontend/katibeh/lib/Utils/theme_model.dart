@@ -6,6 +6,8 @@ class ThemeModel with ChangeNotifier {
   String _name;
   IconData _icon;
   Color _color;
+  Color _textColor;
+  Color _cardColor;
 
   ThemeMode get mode => _mode;
 
@@ -15,21 +17,31 @@ class ThemeModel with ChangeNotifier {
 
   Color get color => _color;
 
+  Color get textColor => _textColor;
+
+  Color get cardColor => _cardColor;
+
   ThemeModel(
       {ThemeMode mode = ThemeMode.light,
-      String name = "تم روشن",
+      String name = "تم تیره",
       IconData icon = Icons.light_mode,
-      Color color = Colors.white})
+      Color color = Colors.black,
+      Color textColor = Colors.black,
+      Color cardColor = Colors.white60})
       : _mode = mode,
         _name = name,
         _icon = icon,
-        _color = color {
+        _color = color,
+        _textColor = textColor,
+        _cardColor = cardColor{
     loadTheme().then((value) {
       bool isDarkMode = value;
       _mode = (isDarkMode ? ThemeMode.dark : ThemeMode.light);
       _name = (isDarkMode ? "تم روشن" : "تم تیره");
       _icon = (isDarkMode ? Icons.light_mode : Icons.dark_mode);
       _color = (isDarkMode ? Colors.yellow : Colors.white);
+      _textColor = (isDarkMode ? Colors.white : Colors.black);
+      _cardColor = (isDarkMode ? Colors.black38 : Colors.white60);
       notifyListeners();
     });
   }
@@ -40,12 +52,16 @@ class ThemeModel with ChangeNotifier {
       _name = "تم روشن";
       _icon = Icons.light_mode;
       _color = Colors.yellow;
+      _textColor = Colors.white;
+      _cardColor = Colors.black38;
       saveTheme(true);
     } else {
       _mode = ThemeMode.light;
       _name = "تم تیره";
       _icon = Icons.dark_mode;
       _color = Colors.white;
+      _textColor = Colors.black;
+      _cardColor = Colors.white60;
       saveTheme(false);
     }
     notifyListeners();

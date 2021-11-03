@@ -4,6 +4,12 @@ import { Like, Repository } from 'typeorm';
 import { ApplicationEntity } from './entity/application.entity';
 import { ApplicationDesEntity } from './entity/applicationDes.entity';
 import * as fs from 'fs';
+import {
+  IPaginationOptions,
+  paginate,
+  Pagination,
+  PaginationTypeEnum,
+} from 'nestjs-typeorm-paginate';
 @Injectable()
 export class ApplicationService {
   constructor(
@@ -66,13 +72,26 @@ export class ApplicationService {
   }
 
   // find spesific apps by prime_genre value
-  async findAppByCategory(prime_genre: string): Promise<ApplicationEntity[]> {
-    return await this.applicationRepo.find({ where: { prime_genre } });
+  async findAppByCategory(
+    options: IPaginationOptions,
+    prime_genre: string,
+  ): Promise<Pagination<ApplicationEntity>> {
+    // return await this.applicationRepo.find({ where: { prime_genre } });
+    // return await paginate<ApplicationEntity>(this.applicationRepo,options,{prime_genre});
+    const query = this.applicationRepo
+      .createQueryBuilder('app')
+      .where('app.prime_genre = :genre', { genre: prime_genre });
+    return await paginate<ApplicationEntity>(query, options);
   }
 
   // get all applications
-  async getAllApplications(): Promise<ApplicationEntity[]> {
-    return await this.applicationRepo.find();
+  async getAllApplications(
+    options: IPaginationOptions,
+  ): Promise<Pagination<ApplicationEntity>> {
+    const query = this.applicationRepo
+      .createQueryBuilder('app')
+      .orderBy('app.vpp_lic', 'DESC');
+    return await paginate<ApplicationEntity>(query, options);
   }
 
   //get application by id
@@ -82,39 +101,38 @@ export class ApplicationService {
 
   //get application details by id
   async getApplicationDesById(id: number): Promise<ApplicationDesEntity[]> {
-    return await this.applicationDesRepo.find({ app_id: id });
+    return await this.applicationDesRepo.find({ id });
   }
 
   // get top / free apps
-  async getTopFreeApps(): Promise<ApplicationEntity[]> {
-    const apps = await this.applicationRepo.find({
-      where: {
-        price: 0,
-      },
-    });
-
-    apps.sort(
-      (a, b) => parseInt(b.rating_count_tot) - parseInt(a.rating_count_tot),
-    );
-    return apps;
+  async getTopFreeApps(
+    options: IPaginationOptions,
+  ): Promise<Pagination<ApplicationEntity>> {
+    const query = this.applicationRepo
+      .createQueryBuilder('app')
+      .where('app.price = :pr', { pr: '0' });
+    return await paginate<ApplicationEntity>(query, options);
   }
 
   //get top apps
-  async getPopularApps(): Promise<ApplicationEntity[]> {
-    const apps = await this.applicationRepo.find();
-    apps.sort(
-      (a, b) => parseInt(b.rating_count_tot) - parseInt(a.rating_count_tot),
-    );
-    return apps;
+  async getPopularApps(
+    options: IPaginationOptions,
+  ): Promise<Pagination<ApplicationEntity>> {
+    const apps = this.applicationRepo
+      .createQueryBuilder('app')
+      .distinct(true)
+      .orderBy('app.rating_count_tot', 'DESC');
+    return await paginate<ApplicationEntity>(apps, options);
   }
 
   //search apps
-  async searchApps(search: string): Promise<ApplicationEntity[]> {
-    const apps = await this.applicationRepo.find({
-      where: {
-        track_name: Like('%' + search + '%'),
-      },
-    });
-    return apps;
+  async searchApps(
+    options: IPaginationOptions,
+    search: string,
+  ): Promise<Pagination<ApplicationEntity>> {
+    const query = this.applicationRepo
+      .createQueryBuilder('app')
+      .where('app.track_name Like :search', { search: `%${search}%` });
+    return await paginate<ApplicationEntity>(query, options);
   }
 }

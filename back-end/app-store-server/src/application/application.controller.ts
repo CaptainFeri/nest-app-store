@@ -1,4 +1,13 @@
-import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
+import {
+  Controller,
+  DefaultValuePipe,
+  Get,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Query,
+} from '@nestjs/common';
+import { PaginationTypeEnum } from 'nestjs-typeorm-paginate';
 import responseModel, { buildResponseModel } from '../common/responseModel';
 import { ApplicationService } from './application.service';
 
@@ -7,15 +16,28 @@ export class ApplicationController {
   constructor(private applicationService: ApplicationService) {}
 
   @Get('/top')
-  async getTopApps(): Promise<responseModel> {
-    const apps = await this.applicationService.getPopularApps();
+  async getTopApps(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ): Promise<responseModel> {
+    const apps = await this.applicationService.getPopularApps({ page, limit });
     return buildResponseModel(HttpStatus.OK, 'top apps', apps);
   }
 
   @Get('/top/free')
-  async getTopFreeApps(): Promise<responseModel> {
-    const apps = await this.applicationService.getTopFreeApps();
-    return buildResponseModel(HttpStatus.OK, 'top free apps', apps);
+  async getTopFreeApps(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ): Promise<responseModel> {
+    limit = limit > 100 ? 100 : limit;
+    const { items, meta, links } = await this.applicationService.getTopFreeApps(
+      { limit, page },
+    );
+    return buildResponseModel(HttpStatus.OK, 'top free apps', {
+      items,
+      meta,
+      links,
+    });
   }
 
   @Get('/categories')
@@ -25,8 +47,16 @@ export class ApplicationController {
   }
 
   @Get('/search/:text')
-  async searchApps(@Param('text') text: string): Promise<responseModel> {
-    const apps = await this.applicationService.searchApps(text);
+  async searchApps(
+    @Param('text') text: string,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ): Promise<responseModel> {
+    limit = limit > 100 ? 100 : limit;
+    const apps = await this.applicationService.searchApps(
+      { limit, page },
+      text,
+    );
     return buildResponseModel(
       HttpStatus.OK,
       `resault for ${text} search`,
@@ -61,8 +91,15 @@ export class ApplicationController {
   }
 
   @Get('/category/:cat')
-  async getAppsOfCategory(@Param('cat') cat: string): Promise<responseModel> {
-    const apps = await this.applicationService.findAppByCategory(cat);
+  async getAppsOfCategory(
+    @Param('cat') cat: string,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 1,
+  ): Promise<responseModel> {
+    const apps = await this.applicationService.findAppByCategory(
+      { page, limit, paginationType: PaginationTypeEnum.LIMIT_AND_OFFSET },
+      cat,
+    );
     if (apps) {
       return buildResponseModel(HttpStatus.OK, `app by ${cat} category`, apps);
     }

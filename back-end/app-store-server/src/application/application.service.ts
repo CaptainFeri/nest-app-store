@@ -96,7 +96,7 @@ export class ApplicationService {
 
   //get application by id
   async getApplicationById(id: number): Promise<ApplicationEntity> {
-    return await this.applicationRepo.findOne({ i: id });
+    return await this.applicationRepo.findOne({ id });
   }
 
   //get application details by id

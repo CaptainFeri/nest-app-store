@@ -4,8 +4,8 @@ import 'package:katibeh/Screens/search.dart';
 import 'package:katibeh/Screens/top_apps.dart';
 import 'package:katibeh/Screens/top_free_apps.dart';
 
-import 'categories.dart';
-import 'home.dart';
+import '../Screens/categories.dart';
+import '../Screens/home.dart';
 
 class AppDrawer extends StatelessWidget {
   @override

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+import '../constants.dart';
+
 class TopAppsProvider with ChangeNotifier {
   Map<String, dynamic> _map = {};
   bool _error = false;
@@ -17,7 +19,7 @@ class TopAppsProvider with ChangeNotifier {
   Future<void> get fetchTopApps async {
     try {
       final response = await http
-          .get(Uri.parse("http://192.168.1.102:3000/application/top"))
+          .get(Uri.parse(domain+"/top"))
           .catchError((e) {
         print(e.toString());
         _error = true;

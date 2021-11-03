@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:katibeh/Utils/utils.dart';
+import 'package:katibeh/Providers/details.dart';
+import 'package:katibeh/widgets/app_details.dart';
 import 'package:provider/provider.dart';
-
-import '../Providers/top_apps.dart';
-import '../Providers/theme.dart';
 
 class Details extends StatelessWidget {
   static const id = 'Details';
+  final appId;
 
-  Details({Key? key}) : super(key: key);
+  Details(this.appId, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    context.read<TopAppsProvider>().fetchTopApps;
-    double w = MediaQuery.of(context).size.width * 0.6;
+    context.read<AppDetailsProvider>().fetchAppDetails(appId);
+    context.read<AppDetailsProvider>().fetchAppDetailsDesc(appId);
     return Scaffold(
       appBar: AppBar(
         title: Text('Details'),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await context.read<TopAppsProvider>().fetchTopApps;
+          await context.read<AppDetailsProvider>().fetchAppDetails(appId);
+          await context.read<AppDetailsProvider>().fetchAppDetailsDesc(appId);
         },
         child: Center(
-          child: Consumer<TopAppsProvider>(
+          child: Consumer<AppDetailsProvider>(
             builder: (context, value, child) {
-              return value.topMap.isEmpty && !value.topError
+              return value.map.isEmpty && !value.topError
                   ? CircularProgressIndicator()
-                  : value.topMap.isNotEmpty &&
+                  : value.map.isNotEmpty &&
                           !value.topError &&
-                          value.topMap['data'].length == 0
+                          value.map['data'].length == 0
                       ? Stack(
                           children: [
                             ListView(),
@@ -53,94 +53,7 @@ class Details extends StatelessWidget {
                                 ),
                               ],
                             )
-                          : ListView.builder(
-                              itemCount: value.topMap["data"].length,
-                              itemBuilder: (content, index) => GestureDetector(
-                                onTap: () {},
-                                child: Card(
-                                  elevation: 2,
-                                  color:
-                                      context.read<ThemeProvider>().cardColor,
-                                  margin: const EdgeInsets.all(3),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 10),
-                                    child: Row(
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                  color: Colors.grey[400]),
-                                              width: 60,
-                                              height: 60,
-                                              child: Icon(
-                                                Icons.apps,
-                                                size: 40,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              width: w,
-                                              child: Text(
-                                                value.topMap["data"][index]
-                                                    ["track_name"],
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: true,
-                                                style: TextStyle(
-                                                    fontSize: 17,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                            SizedBox(height: 10),
-                                            Row(
-                                              children: [
-                                                // Directionality(
-                                                //   textDirection: TextDirection.rtl,
-                                                //   child:
-                                                Container(
-                                                    width: w / 3,
-                                                    child: Text(
-                                                      Utils.formatBytes(
-                                                          int.parse(value
-                                                                      .topMap[
-                                                                  "data"][index]
-                                                              ["size_bytes"]),
-                                                          2),
-                                                      style: TextStyle(
-                                                          fontSize: 12),
-                                                      // textAlign: TextAlign.start,
-                                                      // ),
-                                                    )),
-                                                if (value.topMap["data"][index]
-                                                        ["price"] !=
-                                                    "0")
-                                                  Icon(
-                                                    Icons.paid,
-                                                    size: 20,
-                                                    color: Colors.indigoAccent,
-                                                  )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
+                          : AppDetails(value.map);
             },
           ),
         ),

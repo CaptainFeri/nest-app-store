@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:katibeh/Screens/search.dart';
 import 'package:katibeh/Utils/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../Providers/top_apps.dart';
 import '../Providers/theme.dart';
-import 'drawer.dart';
+import 'details.dart';
+import '../widgets/drawer.dart';
 
 class TopApps extends StatelessWidget {
   static const id = 'TopApps';
@@ -59,7 +59,8 @@ class TopApps extends StatelessWidget {
                           : ListView.builder(
                               itemCount: value.topMap["data"].length,
                               itemBuilder: (content, index) => GestureDetector(
-                                onTap: () {},
+                                onTap: () =>
+                                    onTap(context, value.topMap["data"][index]),
                                 child: Card(
                                   elevation: 2,
                                   color:
@@ -149,5 +150,10 @@ class TopApps extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  onTap(context, topMap) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Details(topMap['i'])));
   }
 }

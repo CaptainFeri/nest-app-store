@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+import '../constants.dart';
+
 class CategoriesProvider with ChangeNotifier {
   Map<String, dynamic> _map = {};
   bool _error = false;
@@ -17,7 +19,7 @@ class CategoriesProvider with ChangeNotifier {
   Future<void> get fetchCategories async {
     try {
       final response = await http
-          .get(Uri.parse("http://192.168.1.102:3000/application/categories"))
+          .get(Uri.parse(domain+"/categories"))
           .catchError((e) {
         print(e.toString());
         _error = true;

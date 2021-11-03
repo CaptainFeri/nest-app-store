@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../Providers/top_apps.dart';
 import '../Providers/theme.dart';
-import 'drawer.dart';
+import '../widgets/drawer.dart';
 
 class AboutUs extends StatelessWidget {
   static const id = 'AboutUs';

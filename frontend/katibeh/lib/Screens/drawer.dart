@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:katibeh/Screens/about_us.dart';
+import 'package:katibeh/Screens/search.dart';
+import 'package:katibeh/Screens/top_apps.dart';
+import 'package:katibeh/Screens/top_free_apps.dart';
+
+import 'categories.dart';
+import 'home.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -33,15 +40,35 @@ class AppDrawer extends StatelessWidget {
               ),
             ),
           ),
-          CustomListTile(Icons.search, "Search", 18, () {}, false),
+          CustomListTile(Icons.home, "Home", 18, () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Home.id);
+          }, false),
           Divider(),
-          CustomListTile(Icons.apps, "Top Apps", 18, () {}, false),
+          CustomListTile(Icons.search, "Search", 18, () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pushNamed(Search.id);
+          }, false),
           Divider(),
-          CustomListTile(Icons.money_off, "Top Free Apps", 18, () {}, false),
+          CustomListTile(Icons.apps, "Top Apps", 18,() {
+            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(TopApps.id);
+          }, false),
           Divider(),
-          CustomListTile(Icons.category, "Categories", 18, () {}, false),
+          CustomListTile(Icons.money_off, "Top Free Apps", 18,() {
+            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(TopFreeApps.id);
+          }, false),
           Divider(),
-          CustomListTile(Icons.people, "About Us", 18, () {}, false),
+          CustomListTile(Icons.category, "Categories", 18, () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(Categories.id);
+          }, false),
+          Divider(),
+          CustomListTile(Icons.people, "About Us", 18, () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacementNamed(AboutUs.id);
+          }, false),
           Divider(),
         ],
       ),
@@ -69,7 +96,7 @@ class CustomListTile extends StatelessWidget {
 //              border: Border(bottom: BorderSide(color: Colors.grey.shade400))),
           child: InkWell(
             splashColor: Color(0xff38dc05),
-            onTap: () => onTap,
+            onTap: () => onTap(),
             child: Container(
               height: 45,
               child: Row(

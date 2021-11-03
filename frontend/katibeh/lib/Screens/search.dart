@@ -35,7 +35,7 @@ class Search extends StatelessWidget {
                 decoration: InputDecoration(
                   hintStyle: TextStyle(fontSize: 17, color: Colors.white38),
                   hintText: 'Search app name',
-                  suffixIcon: Icon(Icons.search),
+                  suffixIcon: Icon(Icons.search, color: Colors.white38,),
                   border: InputBorder.none,
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,

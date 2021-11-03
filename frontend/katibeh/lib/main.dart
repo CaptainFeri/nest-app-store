@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:katibeh/Providers/categories.dart';
 import 'package:katibeh/Providers/top_free_apps.dart';
-import 'package:katibeh/Screens/welcome.dart';
+import 'package:katibeh/Screens/categories.dart';
+import 'package:katibeh/Screens/home.dart';
+import 'package:katibeh/Screens/top_apps.dart';
+import 'package:katibeh/Screens/top_apps.dart';
 import 'package:provider/provider.dart';
 
 import 'Providers/top_apps.dart';
 import 'Providers/theme.dart';
+import 'Screens/about_us.dart';
+import 'Screens/details.dart';
 import 'Screens/search.dart';
+import 'Screens/top_free_apps.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -13,6 +20,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ChangeNotifierProvider(create: (_) => TopAppsProvider()),
       ChangeNotifierProvider(create: (_) => TopFreeAppsProvider()),
+      ChangeNotifierProvider(create: (_) => CategoriesProvider()),
     ],
     child: MyApp(),
   ));
@@ -37,10 +45,15 @@ class MyApp extends StatelessWidget {
         ),
         themeMode: model.mode,
         title: 'Katibeh',
-        initialRoute: Welcome.id,
+        initialRoute: Home.id,
         routes: {
-          Welcome.id: (context) => Welcome(),
+          Home.id: (context) => Home(),
           Search.id: (context) => Search(),
+          Categories.id: (context) => Categories(),
+          TopApps.id: (context) => TopApps(),
+          TopFreeApps.id: (context) => TopFreeApps(),
+          AboutUs.id: (context) => AboutUs(),
+          Details.id: (context) => Details(),
         },
       );
     });

@@ -40,16 +40,6 @@ class Details extends StatelessWidget {
               onTap: () => context.read<ThemeProvider>().toggleMode(),
               child: Row(
                 children: [
-                  // Text(
-                  //   model.name,
-                  //   style: TextStyle(
-                  //       fontSize: 15,
-                  //       color: model.color),
-                  //   textDirection: TextDirection.rtl,
-                  //   ),
-                  // SizedBox(
-                  //   width: 5,
-                  // ),
                   Icon(
                     context.read<ThemeProvider>().icon,
                     color: context.read<ThemeProvider>().color,
@@ -69,10 +59,10 @@ class Details extends StatelessWidget {
         child: Center(
           child: Consumer<AppDetailsProvider>(
             builder: (context, value, child) {
-              return value.map.isEmpty && !value.topError
+              return value.map.isEmpty && !value.error
                   ? CircularProgressIndicator()
                   : value.map.isNotEmpty &&
-                          !value.topError &&
+                          !value.error &&
                           value.map['data'].length == 0
                       ? Stack(
                           children: [
@@ -85,7 +75,7 @@ class Details extends StatelessWidget {
                             ),
                           ],
                         )
-                      : value.topError
+                      : value.error
                           ? Stack(
                               children: [
                                 ListView(),

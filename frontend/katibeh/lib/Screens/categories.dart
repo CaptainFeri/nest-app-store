@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../Providers/theme.dart';
 import '../widgets/drawer.dart';
+import 'category.dart';
 
 class Categories extends StatelessWidget {
   static const id = 'Categories';
@@ -71,13 +72,13 @@ class Categories extends StatelessWidget {
             builder: (context, value, child) {
               return value.categoriesMap.isEmpty && !value.categoriesError
                   ? Stack(
-                children: [
-                  ListView(),
-                  Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ],
-              )
+                      children: [
+                        ListView(),
+                        Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ],
+                    )
                   : value.categoriesMap.isNotEmpty &&
                           !value.categoriesError &&
                           value.categoriesMap['data'].length == 0
@@ -107,7 +108,10 @@ class Categories extends StatelessWidget {
                           : ListView.builder(
                               itemCount: value.categoriesMap["data"][0].length,
                               itemBuilder: (content, index) => GestureDetector(
-                                onTap: () {},
+                                onTap: () => onTap(
+                                    context,
+                                    value.categoriesMap['data'][0][index]
+                                        ['prime_genre']),
                                 child: Card(
                                     elevation: 2,
                                     color:
@@ -168,5 +172,10 @@ class Categories extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  onTap(context, catName) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Category(catName)));
   }
 }

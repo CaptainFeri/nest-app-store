@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:katibeh/Screens/search.dart';
 import 'package:provider/provider.dart';
 
-import '../Providers/top_apps.dart';
 import '../Providers/theme.dart';
 import '../widgets/drawer.dart';
 
@@ -13,7 +12,6 @@ class AboutUs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<TopAppsProvider>().fetchTopApps;
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: AppDrawer(),
@@ -69,7 +67,8 @@ class AboutUs extends StatelessWidget {
               color: context.read<ThemeProvider>().cardColor,
               margin: const EdgeInsets.all(3),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,8 +93,8 @@ class AboutUs extends StatelessWidget {
                         "Developers:",
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
-                        style:
-                            TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                     ),

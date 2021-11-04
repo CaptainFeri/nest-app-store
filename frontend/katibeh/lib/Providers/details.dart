@@ -15,15 +15,15 @@ class AppDetailsProvider with ChangeNotifier {
 
   Map<String, dynamic> get map => _map;
 
-  bool get topError => _error;
+  bool get error => _error;
 
-  String get topErrorMessage => _errorMessage;
+  String get errorMessage => _errorMessage;
 
   Map<String, dynamic> get mapDesc => _mapDesc;
 
-  bool get topErrorDesc => _errorDesc;
+  bool get errorDesc => _errorDesc;
 
-  String get topErrorMessageDesc => _errorMessageDesc;
+  String get errorMessageDesc => _errorMessageDesc;
 
   Future<void> fetchAppDetails(int i) async {
     try {
@@ -84,7 +84,7 @@ class AppDetailsProvider with ChangeNotifier {
         }
       } else {
         _errorDesc = true;
-        _errorMessageDesc = "It must be a problem with your internet connection.";
+        _errorMessageDesc = "Something bad happened";
         _mapDesc = {};
       }
       notifyListeners();

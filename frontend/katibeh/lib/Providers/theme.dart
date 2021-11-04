@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemeModel with ChangeNotifier {
+class ThemeProvider with ChangeNotifier {
   ThemeMode _mode;
   String _name;
   IconData _icon;
@@ -21,7 +21,7 @@ class ThemeModel with ChangeNotifier {
 
   Color get cardColor => _cardColor;
 
-  ThemeModel(
+  ThemeProvider(
       {ThemeMode mode = ThemeMode.light,
       String name = "تم تیره",
       IconData icon = Icons.light_mode,

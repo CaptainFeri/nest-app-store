@@ -39,7 +39,7 @@ class CategoriesProvider with ChangeNotifier {
         }
       } else {
         _error = true;
-        _errorMessage = "It must be a problem with your internet connection.";
+        _errorMessage = "Something bad happened";
         _map = {};
       }
       notifyListeners();

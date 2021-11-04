@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:katibeh/Screens/search.dart';
 import 'package:provider/provider.dart';
 
 import '../Providers/top_apps.dart';
@@ -18,6 +19,48 @@ class AboutUs extends StatelessWidget {
       drawer: AppDrawer(),
       appBar: AppBar(
         title: Text('About Us'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(Search.id),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.search,
+                    color: context.read<ThemeProvider>().color,
+                    size: 30,
+                  )
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 30),
+            child: GestureDetector(
+              onTap: () => context.read<ThemeProvider>().toggleMode(),
+              child: Row(
+                children: [
+                  // Text(
+                  //   model.name,
+                  //   style: TextStyle(
+                  //       fontSize: 15,
+                  //       color: model.color),
+                  //   textDirection: TextDirection.rtl,
+                  //   ),
+                  // SizedBox(
+                  //   width: 5,
+                  // ),
+                  Icon(
+                    context.read<ThemeProvider>().icon,
+                    color: context.read<ThemeProvider>().color,
+                    size: 30,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: SingleChildScrollView(

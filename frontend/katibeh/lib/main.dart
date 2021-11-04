@@ -41,8 +41,8 @@ class MyApp extends StatelessWidget {
         darkTheme: ThemeData(
           // fontFamily: "IranSans",
           // primarySwatch: colorCustom,
-          appBarTheme: AppBarTheme(backgroundColor: Colors.grey[850]),
-          scaffoldBackgroundColor: Colors.grey[900],
+          appBarTheme: AppBarTheme(backgroundColor: Colors.grey[750]),
+          scaffoldBackgroundColor: Colors.grey[850],
           brightness: Brightness.dark,
         ),
         themeMode: model.mode,

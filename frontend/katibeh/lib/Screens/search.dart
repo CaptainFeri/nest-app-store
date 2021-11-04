@@ -31,11 +31,17 @@ class Search extends StatelessWidget {
                 autocorrect: false,
                 autofocus: true,
                 cursorColor: Colors.red,
-                style: TextStyle(fontSize: 20, color: Colors.white, decoration: TextDecoration.none),
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    decoration: TextDecoration.none),
                 decoration: InputDecoration(
                   hintStyle: TextStyle(fontSize: 17, color: Colors.white38),
                   hintText: 'Search app name',
-                  suffixIcon: Icon(Icons.search, color: Colors.white38,),
+                  suffixIcon: Icon(
+                    Icons.search,
+                    color: Colors.white38,
+                  ),
                   border: InputBorder.none,
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
@@ -53,7 +59,14 @@ class Search extends StatelessWidget {
           builder: (context, value, child) {
             return Text("hi");
             // return value.map.length == 0 && !value.error
-            //     ? CircularProgressIndicator()
+            //     ? Stack(
+            //         children: [
+            //           ListView(),
+            //           Center(
+            //             child: CircularProgressIndicator(),
+            //           ),
+            //         ],
+            //       )
             //     : value.error
             //         ? Text(
             //             "Oops! something went wrong. ${value.errorMessage}",

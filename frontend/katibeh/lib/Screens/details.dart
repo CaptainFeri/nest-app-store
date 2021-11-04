@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:katibeh/Providers/details.dart';
+import 'package:katibeh/Providers/theme.dart';
+import 'package:katibeh/Screens/search.dart';
 import 'package:katibeh/widgets/app_details.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +18,48 @@ class Details extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Details'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(Search.id),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.search,
+                    color: context.read<ThemeProvider>().color,
+                    size: 30,
+                  )
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 30),
+            child: GestureDetector(
+              onTap: () => context.read<ThemeProvider>().toggleMode(),
+              child: Row(
+                children: [
+                  // Text(
+                  //   model.name,
+                  //   style: TextStyle(
+                  //       fontSize: 15,
+                  //       color: model.color),
+                  //   textDirection: TextDirection.rtl,
+                  //   ),
+                  // SizedBox(
+                  //   width: 5,
+                  // ),
+                  Icon(
+                    context.read<ThemeProvider>().icon,
+                    color: context.read<ThemeProvider>().color,
+                    size: 30,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {

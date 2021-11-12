@@ -16,7 +16,7 @@ class CategoriesProvider with ChangeNotifier {
 
   String get categoriesErrorMessage => _errorMessage;
 
-  Future<void> get fetchCategories async {
+  Future<void>  fetchCategories() async {
     try {
       final response = await http
           .get(Uri.parse(domain+"/categories"))

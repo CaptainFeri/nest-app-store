@@ -8,7 +8,6 @@ import '../Providers/theme.dart';
 import 'details.dart';
 
 class Category extends StatefulWidget {
-  static const id = 'Category';
   final catName;
 
   Category(this.catName, {Key? key}) : super(key: key);

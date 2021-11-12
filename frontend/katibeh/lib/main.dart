@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:katibeh/Providers/categories.dart';
 import 'package:katibeh/Providers/category.dart';
 import 'package:katibeh/Providers/details.dart';
+import 'package:katibeh/Providers/search.dart';
 import 'package:katibeh/Providers/top_free_apps.dart';
 import 'package:katibeh/Screens/categories.dart';
 import 'package:katibeh/Screens/home.dart';
@@ -25,6 +26,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => CategoriesProvider()),
       ChangeNotifierProvider(create: (_) => AppDetailsProvider()),
       ChangeNotifierProvider(create: (_) => CategoryProvider()),
+      ChangeNotifierProvider(create: (_) => SearchProvider()),
     ],
     child: MyApp(),
   ));

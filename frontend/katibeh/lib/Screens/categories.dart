@@ -14,7 +14,7 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<CategoriesProvider>().fetchCategories;
+    context.read<CategoriesProvider>().fetchCategories();
     double w = MediaQuery.of(context).size.width * 0.6;
     return Scaffold(
       drawer: AppDrawer(),
@@ -65,7 +65,7 @@ class Categories extends StatelessWidget {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await context.read<CategoriesProvider>().fetchCategories;
+          await context.read<CategoriesProvider>().fetchCategories();
         },
         child: Center(
           child: Consumer<CategoriesProvider>(

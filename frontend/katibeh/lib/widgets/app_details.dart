@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:katibeh/Providers/categories.dart';
+import 'package:katibeh/Providers/category.dart';
 import 'package:katibeh/Providers/theme.dart';
+import 'package:katibeh/Providers/top_free_apps.dart';
+import 'package:katibeh/Screens/details.dart';
 import 'package:katibeh/Utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class AppDetails extends StatelessWidget {
+class AppDetails extends StatefulWidget {
   final Map<String, dynamic> map;
   final Map<String, dynamic> mapDesc;
 
   AppDetails(this.map, this.mapDesc);
+
+  @override
+  State<AppDetails> createState() => _AppDetailsState();
+}
+
+class _AppDetailsState extends State<AppDetails> {
+  String text = "More";
+
+  int maxLine = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -51,23 +64,24 @@ class AppDetails extends StatelessWidget {
                                 height: 100,
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  map['data']['track_name'],
+                                  widget.map['data']['track_name'],
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: true,
                                   maxLines: 3,
                                   style: TextStyle(
-                                      fontSize: 17, fontWeight: FontWeight.bold),
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                               Row(
                                 children: [
-                                  if (map['data']['price'] != "0")
+                                  if (widget.map['data']['price'] != "0")
                                     Icon(
                                       Icons.paid,
                                       size: 20,
                                       color: Colors.indigoAccent,
                                     ),
-                                  if (map['data']['price'] == "0")
+                                  if (widget.map['data']['price'] == "0")
                                     Icon(
                                       Icons.money_off,
                                       size: 20,
@@ -76,20 +90,22 @@ class AppDetails extends StatelessWidget {
                                   SizedBox(
                                     width: 5,
                                   ),
-                                  if (map['data']['price'] != "0")
+                                  if (widget.map['data']['price'] != "0")
                                     Text(
-                                        map['data']['price'] +
+                                        widget.map['data']['price'] +
                                             " " +
-                                            map['data']['currency'],
+                                            widget.map['data']['currency'],
                                         style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold)),
-                                  if (map['data']['price'] == "0")
+                                  if (widget.map['data']['price'] == "0")
                                     Text("Free",
                                         style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold)),
-                                  if (map['data']['vpp_lic'].toString() == "1")
+                                  if (widget.map['data']['vpp_lic']
+                                          .toString() ==
+                                      "1")
                                     Container(
                                       padding: EdgeInsets.only(left: 30),
                                       child: Text("VPP",
@@ -135,7 +151,8 @@ class AppDetails extends StatelessWidget {
                                 ),
                                 SizedBox(height: 8),
                                 Text(
-                                  map['data']['rating_count_tot'] + " Users",
+                                  widget.map['data']['rating_count_tot'] +
+                                      " Users",
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: true,
                                   style: TextStyle(
@@ -153,7 +170,9 @@ class AppDetails extends StatelessWidget {
                                 SizedBox(height: 5),
                                 Text(
                                   Utils.formatBytes(
-                                      int.parse(map['data']['size_bytes']), 2),
+                                      int.parse(
+                                          widget.map['data']['size_bytes']),
+                                      2),
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: true,
                                   style: TextStyle(
@@ -170,7 +189,7 @@ class AppDetails extends StatelessWidget {
                                 Icon(Icons.person, size: 22),
                                 SizedBox(height: 5),
                                 Text(
-                                  map['data']['cont_rating'],
+                                  widget.map['data']['cont_rating'],
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: true,
                                   style: TextStyle(
@@ -187,7 +206,7 @@ class AppDetails extends StatelessWidget {
                                 Icon(Icons.merge_type, size: 22),
                                 SizedBox(height: 5),
                                 Text(
-                                  map['data']['ver'],
+                                  widget.map['data']['ver'],
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: true,
                                   style: TextStyle(
@@ -204,7 +223,7 @@ class AppDetails extends StatelessWidget {
                                 Icon(Icons.category_outlined, size: 22),
                                 SizedBox(height: 5),
                                 Text(
-                                  map['data']['prime_genre'],
+                                  widget.map['data']['prime_genre'],
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: true,
                                   style: TextStyle(
@@ -221,7 +240,7 @@ class AppDetails extends StatelessWidget {
                                 Icon(Icons.language, size: 22),
                                 SizedBox(height: 5),
                                 Text(
-                                  map['data']['langnum'],
+                                  widget.map['data']['langnum'],
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: true,
                                   style: TextStyle(
@@ -246,8 +265,9 @@ class AppDetails extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
                         style: TextStyle(
-                          color: Colors.orange,
-                            fontSize: 17, fontWeight: FontWeight.bold),
+                            color: Colors.orange,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
                         textAlign: TextAlign.start,
                       ),
                     ),
@@ -257,18 +277,176 @@ class AppDetails extends StatelessWidget {
                     Container(
                       width: w,
                       padding: EdgeInsets.all(10),
-                      child: Text(
-                        mapDesc['data'][0]['app_desc'],
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                        maxLines: 100,
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontStyle: FontStyle.italic),
-                        textAlign: TextAlign.start,
-                      ),
+                      child: widget.mapDesc['data'] == null
+                          ? Center(child: CircularProgressIndicator())
+                          : Text(
+                              widget.mapDesc['data'][0]['app_desc'],
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              maxLines: maxLine,
+                              style: TextStyle(
+                                  fontSize: 15, fontStyle: FontStyle.italic),
+                              textAlign: TextAlign.start,
+                            ),
                     ),
-
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            text == "More" ? text = "Less" : text = "More";
+                            text == "More" ? maxLine = 5 : maxLine = 1000;
+                          });
+                        },
+                        child: Text(text)),
+                    SizedBox(
+                        height: 50
+                    ),
+                    Text(
+                      "You Might Also Like",
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                        height: 10
+                    ),
+                    Consumer<CategoryProvider>(
+                      builder: (context, value, child) {
+                        return value.category.isEmpty && !value.error
+                            ? Stack(
+                          children: [
+                            ListView(shrinkWrap: true),
+                            Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ],
+                        )
+                            : value.category.isNotEmpty &&
+                            !value.error &&
+                            value.category.length == 0
+                            ? Stack(
+                          children: [
+                            ListView(shrinkWrap: true),
+                            Center(
+                              child: Text(
+                                "We couldn't find any app",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ],
+                        )
+                            : value.error
+                            ? Stack(
+                          children: [
+                            ListView(shrinkWrap: true),
+                            Center(
+                              child: Text(
+                                "Oops! something went wrong.",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ],
+                        )
+                            : Container(
+                          height: 250,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: value.category.length,
+                            itemBuilder: (content, index) =>
+                                GestureDetector(
+                                  onTap: () => onTap(
+                                      context, value.category[index]),
+                                  child: Card(
+                                    elevation: 2,
+                                    color: context
+                                        .read<ThemeProvider>()
+                                        .cardColor,
+                                    margin: const EdgeInsets.all(3),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 10),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    50),
+                                                color: Colors.greenAccent),
+                                            width: 60,
+                                            height: 60,
+                                            child: Icon(
+                                              Icons.apps,
+                                              size: 40,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          Container(
+                                            width: w * 0.3,
+                                            child: Text(
+                                              value.category[index]
+                                                  .trackName,
+                                              overflow:
+                                              TextOverflow.ellipsis,
+                                              softWrap: true,
+                                              maxLines: 3,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight:
+                                                  FontWeight.bold),
+                                            ),
+                                          ),
+                                          SizedBox(height: 5),
+                                          Row(
+                                            children: [
+                                              // Directionality(
+                                              //   textDirection: TextDirection.rtl,
+                                              //   child:
+                                              Container(
+                                                  width: w * 0.6 / 3,
+                                                  child: Text(
+                                                    Utils.formatBytes(
+                                                        int.parse(value
+                                                            .category[
+                                                        index]
+                                                            .sizeBytes),
+                                                        2),
+                                                    style: TextStyle(
+                                                        fontSize: 12),
+                                                    // textAlign: TextAlign.start,
+                                                    // ),
+                                                  )),
+                                              if (value.category[index]
+                                                  .price !=
+                                                  "0")
+                                                Icon(
+                                                  Icons.paid,
+                                                  size: 20,
+                                                  color:
+                                                  Colors.indigoAccent,
+                                                ),
+                                              if (value.category[index]
+                                                  .price ==
+                                                  "0")
+                                                Icon(
+                                                  Icons.money_off,
+                                                  size: 20,
+                                                  color: Colors.green,
+                                                )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               )),
@@ -276,4 +454,9 @@ class AppDetails extends StatelessWidget {
       ),
     );
   }
+  onTap(context, topApp) {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Details(topApp.id)));
+  }
 }
+

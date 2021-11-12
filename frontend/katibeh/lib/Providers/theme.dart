@@ -41,7 +41,7 @@ class ThemeProvider with ChangeNotifier {
       _icon = (isDarkMode ? Icons.light_mode : Icons.dark_mode);
       _color = (isDarkMode ? Colors.yellow : Colors.white);
       _textColor = (isDarkMode ? Colors.white : Colors.black);
-      _cardColor = (isDarkMode ? Colors.black38 : Colors.white70);
+      _cardColor = (isDarkMode ? Colors.black38 : Colors.white);
       notifyListeners();
     });
   }
@@ -61,7 +61,7 @@ class ThemeProvider with ChangeNotifier {
       _icon = Icons.dark_mode;
       _color = Colors.white;
       _textColor = Colors.black;
-      _cardColor = Colors.white70;
+      _cardColor = Colors.white;
       saveTheme(false);
     }
     notifyListeners();

@@ -76,7 +76,7 @@ class AboutUs extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: Colors.grey[400]),
+                          color: Colors.redAccent[400]),
                       width: 60,
                       height: 60,
                       child: Icon(
@@ -93,13 +93,13 @@ class AboutUs extends StatelessWidget {
                         "Developers:",
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
-                        style: TextStyle(
+                        style: TextStyle(color: Colors.purpleAccent[400],
                             fontSize: 17, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 40,
                     ),
                     Container(
                       width: w,

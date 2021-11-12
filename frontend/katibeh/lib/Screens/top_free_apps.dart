@@ -162,7 +162,7 @@ class _TopFreeAppsState extends State<TopFreeApps> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               50),
-                                                      color: Colors.grey[400]),
+                                                      color: Colors.greenAccent),
                                                   width: 60,
                                                   height: 60,
                                                   child: Icon(

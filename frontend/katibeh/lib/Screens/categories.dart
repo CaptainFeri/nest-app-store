@@ -129,7 +129,7 @@ class Categories extends StatelessWidget {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             50),
-                                                    color: Colors.grey[400]),
+                                                    color: Colors.pink[300]),
                                                 width: 60,
                                                 height: 60,
                                                 child: Icon(

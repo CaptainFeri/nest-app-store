@@ -22,17 +22,21 @@ class AppDrawer extends StatelessWidget {
               ]),
             ),
             child: Container(
+              // width: 100,
+              // height: 100,
               child: Column(
                 children: <Widget>[
                   Material(
                     borderRadius: BorderRadius.all(Radius.circular(50)),
-                    child:
-                        Image.asset('images/logo.png', width: 80, height: 80),
+                    child: Padding(
+                        padding: EdgeInsets.all(12),
+                        child: Image.asset('images/logo.png',
+                            width: 70, height: 70)),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'App Store',
+                      'Katibeh Store',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
@@ -50,12 +54,12 @@ class AppDrawer extends StatelessWidget {
             Navigator.of(context).pushNamed(Search.id);
           }, false),
           Divider(),
-          CustomListTile(Icons.apps, "Top Apps", 18,() {
+          CustomListTile(Icons.apps, "Top Apps", 18, () {
             Navigator.of(context).pop();
             Navigator.of(context).pushReplacementNamed(TopApps.id);
           }, false),
           Divider(),
-          CustomListTile(Icons.money_off, "Top Free Apps", 18,() {
+          CustomListTile(Icons.money_off, "Top Free Apps", 18, () {
             Navigator.of(context).pop();
             Navigator.of(context).pushReplacementNamed(TopFreeApps.id);
           }, false),

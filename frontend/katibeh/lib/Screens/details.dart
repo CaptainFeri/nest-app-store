@@ -87,7 +87,7 @@ class Details extends StatelessWidget {
                                 ),
                               ],
                             )
-                          : AppDetails(value.map);
+                          : AppDetails(value.map, value.mapDesc);
             },
           ),
         ),

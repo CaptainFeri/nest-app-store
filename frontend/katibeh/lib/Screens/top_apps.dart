@@ -162,7 +162,7 @@ class _TopAppsState extends State<TopApps> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               50),
-                                                      color: Colors.grey[400]),
+                                                      color: Colors.blue[300]),
                                                   width: 60,
                                                   height: 60,
                                                   child: Icon(

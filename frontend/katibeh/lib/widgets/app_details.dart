@@ -137,7 +137,7 @@ class _AppDetailsState extends State<AppDetails> {
                                 Row(
                                   children: [
                                     Text(
-                                      '3.4',
+                                      widget.map['data']['user_rating'],
                                       overflow: TextOverflow.ellipsis,
                                       softWrap: true,
                                       style: TextStyle(

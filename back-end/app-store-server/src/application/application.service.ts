@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { ApplicationEntity } from './entity/application.entity';
 import { ApplicationDesEntity } from './entity/applicationDes.entity';
 import * as fs from 'fs';
@@ -8,8 +8,8 @@ import {
   IPaginationOptions,
   paginate,
   Pagination,
-  PaginationTypeEnum,
 } from 'nestjs-typeorm-paginate';
+
 @Injectable()
 export class ApplicationService {
   constructor(

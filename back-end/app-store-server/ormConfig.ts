@@ -1,6 +1,3 @@
-import { ApplicationEntity } from "./src/application/entity/application.entity";
-import { ApplicationDesEntity } from "./src/application/entity/applicationDes.entity";
-import { ConnectionOptions } from "typeorm";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
 const config : TypeOrmModuleOptions = {

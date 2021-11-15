@@ -49,12 +49,12 @@ class _SearchState extends State<Search> {
     val = "";
   }
 
-  onChangeTextFormField(String value, BuildContext context) {
+  Future<void> onChangeTextFormField(String value, BuildContext context) async {
     reset();
     val = value;
 
     if (value != "") {
-      context
+      await context
           .read<SearchProvider>()
           .fetchSearchedApps(page: 1, searchItem: value);
     }
@@ -101,7 +101,7 @@ class _SearchState extends State<Search> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: () async => reset(),
+        onRefresh: () => onChangeTextFormField(val, context),
         child: Center(
           child: Consumer<SearchProvider>(
             builder: (context, value, child) {

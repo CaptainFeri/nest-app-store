@@ -3,13 +3,13 @@ simple nest app store
 
 An Android application store for searching and getting information of iOS apllications. We visualized data from Kaggle Apple Application Dataset
 
-##Detailed diagrams & Documentation
+## Detailed diagrams & Documentation
 The documentaions to this app is in here.
 
 ## Usage
-Katibeh is an application including over 10,000 iOS applications in different categories. Every app includes rating, review, number of users and downloads, app size, category and etc.
+Katibeh is an application including over 10,000 iOS applications in different categories. Every apps include rating, review, number of users and downloads, app size, category and etc.
 
-visit project on [https://github.com/CaptainFeri/nest-app-store]([https://github.com/CaptainFeri/nest-app-store])
+visit project on [https://github.com/CaptainFeri/nest-app-store](https://github.com/CaptainFeri/nest-app-store)
 
 ## Technologies
 - Flutter

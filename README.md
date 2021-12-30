@@ -1,10 +1,8 @@
-# nest-app-store
-simple nest app store
-
+# Katibeh app store
 An Android application store for searching and getting information of iOS apllications. We visualized data from Kaggle Apple Application Dataset
 
 ## Detailed diagrams & Documentation
-The documentaions to this app is in here.
+The documentaions of this app presented here.
 
 ## Usage
 Katibeh is an application including over 10,000 iOS applications in different categories. Every apps include rating, review, number of users and downloads, app size, category and etc.
